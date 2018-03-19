@@ -29,7 +29,7 @@ module RailsAmp
 
         options[:layout] ||= 'fixed'
         options.select! { |key, _| key.to_s.in?(AMP_IMG_PERMITTED_ATTRIBUTES) }
-        tag('amp-img', options) + '</amp-img>'.html_safe
+        tag('amp-img', options, true) + '</amp-img>'.html_safe
       end
 
       # override image_tag helper in ActionView::Helpers::AssetTagHelper
