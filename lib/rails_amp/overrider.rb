@@ -5,7 +5,8 @@ module RailsAmp
     included do
       before_action do
         RailsAmp.format = request[:format]
-        if RailsAmp.amp_renderable?(controller_path, action_name)  # default_format is :amp
+        AMP_TESTED_SLUG = ['eazibet-promotion-code-3', 'sportpesa-rafiki-bonus'].freeze
+        if RailsAmp.amp_renderable?(controller_path, action_name) && Article::AMP_TESTED_SLUG.include?(request.path_parameters[:id])  # default_format is :amp
           override_actions_with_rails_amp
         end
       end
