@@ -5,7 +5,7 @@ module RailsAmp
     included do
       before_action do
         RailsAmp.format = request[:format]
-        if RailsAmp.amp_renderable?(controller_path, action_name) && Article::AMP_TESTED_SLUG.include?(request.path_parameters[:id])  # default_format is :amp
+        if RailsAmp.amp_renderable?(controller_path, action_name) # default_format is :amp
           override_actions_with_rails_amp
         end
       end
@@ -24,7 +24,7 @@ module RailsAmp
             actions.to_a.each do |action|
               define_method action.to_sym do
                 super()
-                unless performed?
+                if Article::AMP_TESTED_SLUG.include?(request.path_parameters[:id]) && !performed?
                   respond_to do |format|
                     format.send(RailsAmp.default_format.to_sym) do
                       # search amp format(default is .amp) .html templates
